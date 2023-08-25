@@ -1,4 +1,4 @@
-=== Yomiagete! ===
+=== Yomiagete ===
 Contributors: Ganohr
 Tags: Readout, Audiolize, TTS
 Donate link: http://amzn.asia/gw9HHbg
