@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/*!
+ * Ganohrs Yomiagete Ver 0.0.1 - 2023
+ * Programmed by https://ganohr.net/
+ * You can use for Free. Licensed as GPLv3.
+ */
+
+* [data-yomiage-id] {
+	border:2px solid transparent;
+}
+
+.yomiage-now-speaking {
+	background-color: yellow;
+	color: red;
+	font-weight: bold;
+	border: 2px solid red;
+}
+
+#yomiagete-controller {
+	display: inline-flex;
+}
+
+#yomiagete-controller-play {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: auto;
+	margin-left: auto;
+	width: 40px;
+	height: 40px;
+	font-size: 12px;
+	font-weight: 700;
+	background-image: radial-gradient(#d5525f 60%, transparent 65%), conic-gradient(#d5525f 0% 0%, #d9d9d9 0% 100%);
+	/*background-image: radial-gradient(#f2f2f2 60%, transparent 65%), conic-gradient(#d5525f 0% 0%, #d9d9d9 0% 100%);*/
+	border-radius: 50%;
+	color: white;
+	cursor: pointer;
+}
+
+#yomiagete-controller-label {
+	width: auto;
+	cursor: pointer;
+	margin: auto;
+	padding: 0 0.25em;
+}
+
+.yomiagete-controller-space {
+	width: 2em;
+}
