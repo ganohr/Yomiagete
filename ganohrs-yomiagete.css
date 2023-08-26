@@ -19,6 +19,10 @@
 
 #yomiagete-controller {
 	display: inline-flex;
+	background: white;
+	border: 1px solid;
+	padding: 0.25em;
+	z-index: 2147483647;
 }
 
 #yomiagete-controller-play {

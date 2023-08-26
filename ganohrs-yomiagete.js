@@ -12,6 +12,8 @@ window.ganohrsSpeakIt = {};
 	let threadId  = undefined;
 	let status    = undefined;
 
+	const controller = document.getElementById("yomiagete-controller");
+
 	const readOption = (option) => {
 		return document.getElementById('ganohrs-yomiagete-options-' + option).getAttribute("value");
 	};
@@ -205,24 +207,8 @@ window.ganohrsSpeakIt = {};
 
 	}
 
-	const uiControll = ()=> {
-		if ("playing" === status
-			|| "speaking" === status
-		) {
-			ganohrsSpeakIt.pause();
-		} else if("paused" === status) {
-			ganohrsSpeakIt.resume();
-		} else if("stopped" === status
-			|| "initialized" === status
-			|| "ended" === status
-		) {
-			ganohrsSpeakIt.start();
-		}
-		updatePlayButton();
-	};
-
 	const playButton = document.getElementById("yomiagete-controller-play");
-	playButton.addEventListener('click', uiControll);
+	const playLabel = document.getElementById("yomiagete-controller-label");
 
 	updatePlayButton = () => {
 		if ("playing" === status
@@ -254,7 +240,46 @@ window.ganohrsSpeakIt = {};
 		}
 	}
 
-	const playLabel = document.getElementById("yomiagete-controller-label");
+	const controllerReLayout = () => {
+		const pcAdBar = document.querySelector(".adsbygoogle-noablate[data-anchor-status]");
+		if (pcAdBar === null || pcAdBar === undefined) {
+			controller.style.bottom = 0;
+		} else {
+			if (pcAdBar.offsetTop < window.innerHeight * 0.5) {
+				return;
+			}
+			const func = () => {
+				controller.style.top = (pcAdBar.offsetTop - 70) + "px";
+			};
+			func();
+			const ob = new MutationObserver(func);
+			ob.observe(pcAdBar, {
+				attributes: true,
+				attributeFilter: ['style'],
+			});
+		}
+	};
+
+	const uiControll = ()=> {
+		if ("playing" === status
+			|| "speaking" === status
+		) {
+			ganohrsSpeakIt.pause();
+		} else if("paused" === status) {
+			ganohrsSpeakIt.resume();
+		} else if("stopped" === status
+			|| "initialized" === status
+			|| "ended" === status
+		) {
+			controller.style.position = "fixed";
+			controllerReLayout();
+
+			ganohrsSpeakIt.start();
+		}
+		updatePlayButton();
+	};
+
+	playButton.addEventListener('click', uiControll);
 	playLabel.addEventListener('click', uiControll);
 
 	// 初期化処理を呼び出す
