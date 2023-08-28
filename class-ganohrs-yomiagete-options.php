@@ -222,7 +222,7 @@ if ( ! class_exists( 'ganohrs_yomiagete_Options' ) ) :
 			$new_input['target_tags']     = isset( $input['target_tags'] )     ? @$input['target_tags']     : 'h1,h2,h3,h4,h5,h6,p,figcaption,li,pre';
 			$new_input['target_types']    = isset( $input['target_types'] )    ? @$input['target_types']    : 'post,page';
 			$new_input['language']        = isset( $input['language'] )        ? @$input['language']        : (strlen(get_locale()) === 0 ? "ja" : get_locale());
-			$new_input['speaker']         = isset( $input['speaker'] )         ? @$input['speaker']         : 'Microsoft Ayumi,Microsoft Haruka,Microsoft Sayaka,Microsoft Ichiro,Microsoft,Google';
+			$new_input['speaker']         = isset( $input['speaker'] )         ? @$input['speaker']         : 'Microsoft Ayumi,Microsoft Haruka,Microsoft Sayaka,Microsoft Ichiro,Microsoft,Google,Kyoko,Fiona,Alex,Daniel,Fred';
 			$new_input['rate']            = isset( $input['rate'] )            ? @$input['rate']            : '1.0';
 			$new_input['pitch']           = isset( $input['pitch'] )           ? @$input['pitch']           : '1.0';
 			$new_input['volume']          = isset( $input['volume'] )          ? @$input['volume']          : '1.0';
@@ -290,7 +290,7 @@ if ( ! class_exists( 'ganohrs_yomiagete_Options' ) ) :
 		public function speaker_callback() {
 			$speaker = is_array( $this->options ) ? @$this->options['speaker'] : '';
 			if ( ! is_string( $speaker ) || strlen( $speaker ) === 0 ) {
-				$speaker = 'Microsoft Ayumi,Microsoft Haruka,Microsoft Sayaka,Microsoft Ichiro,Microsoft,Google';
+				$speaker = 'Microsoft Ayumi,Microsoft Haruka,Microsoft Sayaka,Microsoft Ichiro,Microsoft,Google,Kyoko,Fiona,Alex,Daniel,Fred';
 			}
 			?>
 				<label for="speaker" >Target Speaker

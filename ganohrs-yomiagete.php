@@ -86,8 +86,8 @@ if (!function_exists('ganohrs_yomiagete_func')) :
 		return <<<EOF
 <div id="yomiagete-controller">
 	<div class="yomiagete-controller-space">&nbsp;</div>
-	<div id="yomiagete-controller-play">再生</div>
-	<div id="yomiagete-controller-label">本文を音声で読み上げる</div>
+	<div id="yomiagete-controller-play"><?php _e("Read", "ganohrs-yomiagete") ?></div>
+	<div id="yomiagete-controller-label"><?php _e("Read all text aloud.") ?></div>
 	<div class="yomiagete-controller-space">&nbsp;</div>
 </div>
 EOF;
