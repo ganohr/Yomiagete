@@ -9,9 +9,14 @@ echo VERSION
 echo %version%
 
 set "outpath=.\trunk\%version%"
+echo %outpath%
+rmdir /s /q %outpath%\
+
 mkdir %outpath%\
+mkdir %outpath%\languages\
 
 rem copy *.md %outpath%\
+copy languages\*.* %outpath%\languages\
 copy *.txt %outpath%\
 copy *.css %outpath%\
 copy *.js %outpath%\

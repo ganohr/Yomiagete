@@ -1,13 +1,14 @@
 <?php
 /*
-Plugin Name: Yomiagete - Your Messages Instantly Audiolize: Giving Every Text!
-Plugin URI: https://ganohr.net/blog/yomiagete/
-Description: You can add a simple readout system "Yomiagete" to your WordPress articles!
-Version: 0.0.1
-Author: Ganohr
-Author URI: https://ganohr.net/
-License: GPL3
-*/
+ * Plugin Name: Yomiagete - Your Messages Instantly Audiolize: Giving Every Text!
+ * Plugin URI: https://ganohr.net/blog/yomiagete/
+ * Description: You can add a simple readout system "Yomiagete" to your WordPress articles!
+ * Version: 0.0.1
+ * Author: Ganohr
+ * Author URI: https://ganohr.net/
+ * Text Domain: ganohrs-yomiagete
+ * License: GPL3
+ */
 ?>
 <?php
 /*
@@ -36,14 +37,26 @@ if (!defined('ABSPATH')) {
 
 // 関数がなければ定義する
 if (!function_exists('ganohrs_yomiagete_func')) :
+	// オプション画面・オプション関連
 	require_once('class-ganohrs-yomiagete-options.php');
 
 	// 読み上げに用いるdata-id
-
 	define('GANOHRS_YOMIAGETE_DATA_ID', 'data-yomiage-id');
+
+	// 翻訳用のテキストドメイン
+	define('GANOHRS_YOMIAGETE_TEXTDOMAN', 'ganohrs-yomiagete');
+
+	// 翻訳用のラベル
+	define('GANOHRS_YOMIAGETE_LABEL_READ', "Read");
+	define('GANOHRS_YOMIAGETE_LABEL_READ_ALOUD', "Read all text aloud.");
+	define('GANOHRS_YOMIAGETE_LABEL_PAUSE', "Pause");
+	define('GANOHRS_YOMIAGETE_LABEL_RESUME', "Resume");
 
 	// フィルタを登録
 	add_filter('the_content', 'ganohrs_yomiagete_func', 2000000);
+
+	// 翻訳用のテキストドメイン
+	load_plugin_textdomain("ganohrs-yomiagete", false, dirname(plugin_basename( __FILE__ )) . "/languages");
 
 	// ショートコード本体
 	function ganohrs_yomiagete_func($contents)
@@ -80,14 +93,16 @@ if (!function_exists('ganohrs_yomiagete_func')) :
 	}
 
 	/**
-	 *
+	 * コントローラー用のHTMLを返却する
 	 */
 	function ganohrs_yomiagete_get_controller_html() {
+		$read       = __(GANOHRS_YOMIAGETE_LABEL_READ      , GANOHRS_YOMIAGETE_TEXTDOMAN);
+		$read_aloud = __(GANOHRS_YOMIAGETE_LABEL_READ_ALOUD, GANOHRS_YOMIAGETE_TEXTDOMAN);
 		return <<<EOF
 <div id="yomiagete-controller">
 	<div class="yomiagete-controller-space">&nbsp;</div>
-	<div id="yomiagete-controller-play"><?php _e("Read", "ganohrs-yomiagete") ?></div>
-	<div id="yomiagete-controller-label"><?php _e("Read all text aloud.") ?></div>
+	<div id="yomiagete-controller-play">$read</div>
+	<div id="yomiagete-controller-label">$read_aloud</div>
 	<div class="yomiagete-controller-space">&nbsp;</div>
 </div>
 EOF;
@@ -318,6 +333,11 @@ EOF;
 				$volume = 1.0;
 			}
 		}
+		$read       = __(GANOHRS_YOMIAGETE_LABEL_READ      , GANOHRS_YOMIAGETE_TEXTDOMAN);
+		$read_aloud = __(GANOHRS_YOMIAGETE_LABEL_READ_ALOUD, GANOHRS_YOMIAGETE_TEXTDOMAN);
+		$pause      = __(GANOHRS_YOMIAGETE_LABEL_PAUSE     , GANOHRS_YOMIAGETE_TEXTDOMAN);
+		$resume     = __(GANOHRS_YOMIAGETE_LABEL_RESUME    , GANOHRS_YOMIAGETE_TEXTDOMAN);
+
 		return <<<EOF
 <div id="ganohrs-yomiagete-options">
 <hidden id="ganohrs-yomiagete-options-language" value="$language"></hidden>
@@ -325,6 +345,10 @@ EOF;
 <hidden id="ganohrs-yomiagete-options-rate" value="$rate"></hidden>
 <hidden id="ganohrs-yomiagete-options-pitch" value="$pitch"></hidden>
 <hidden id="ganohrs-yomiagete-options-volume" value="$volume"></hidden>
+<hidden id="ganohrs-yomiagete-labels-read" value="$read"></hidden>
+<hidden id="ganohrs-yomiagete-labels-read-aloud" value="$read_aloud"></hidden>
+<hidden id="ganohrs-yomiagete-labels-pause" value="$pause"></hidden>
+<hidden id="ganohrs-yomiagete-labels-resume" value="$resume"></hidden>
 </div>
 EOF;
 	}

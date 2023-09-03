@@ -14,8 +14,8 @@ window.ganohrsSpeakIt = {};
 
 	const controller = document.getElementById("yomiagete-controller");
 
-	const readOption = (option) => {
-		return document.getElementById('ganohrs-yomiagete-options-' + option).getAttribute("value");
+	const readData = (types, option) => {
+		return document.getElementById('ganohrs-yomiagete-' + types + '-' + option).getAttribute("value");
 	};
 
 	ganohrsSpeakIt.stop = () => {
@@ -192,11 +192,11 @@ window.ganohrsSpeakIt = {};
 		}
 		elems = document.querySelectorAll("*[data-yomiage-id]");
 
-		const language = readOption('language');
-		const speaker  = readOption('speaker');
-		const rate     = readOption('rate');
-		const pitch    = readOption('pitch');
-		const volume   = readOption('volume');
+		const language = readData('options', 'language');
+		const speaker  = readData('options', 'speaker');
+		const rate     = readData('options', 'rate');
+		const pitch    = readData('options', 'pitch');
+		const volume   = readData('options', 'volume');
 
 		initializeThread = setInterval(()=>{
 			if (speakerSet(language, speaker, rate, pitch, volume)) {
@@ -211,6 +211,11 @@ window.ganohrsSpeakIt = {};
 	const playLabel = document.getElementById("yomiagete-controller-label");
 
 	updatePlayButton = () => {
+		const read      = readData('labels', 'read');
+		const readAloud = readData('labels', 'read-aloud');
+		const pause     = readData('labels', 'pause');
+		const resume    = readData('labels', 'resume');
+
 		if ("playing" === status
 			|| "speaking" === status
 		) {
@@ -227,16 +232,16 @@ window.ganohrsSpeakIt = {};
 			playButton.innterText = val;
 			playButton.style.color = "#d5525f";
 			playButton.style.background = "radial-gradient(#f2f2f2 60%, transparent 65%), conic-gradient(#d5525f " + val + " 0%, #d9d9d9 " + val + " 100%)";
-			playButton.innerText = "停止";
+			playButton.innerText = pause;
 		} else if("pausing" === status
 			|| "paused" === status
 		) {
-			playButton.innerText = "再開";
+			playButton.innerText = resume;
 		} else if("ended" === status) {
-			playButton.innerText = "再生";
+			playButton.innerText = read;
 			playButton.style.background = "radial-gradient(#f2f2f2 60%, transparent 65%), conic-gradient(#d5525f 100% 0%, #d9d9d9 100% 100%)";
 		} else {
-			playButton.innerText = "再生";
+			playButton.innerText = read;
 		}
 	}
 
