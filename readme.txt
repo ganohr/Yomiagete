@@ -12,7 +12,7 @@ License URI: http://www.opensource.jp/gpl/gpl.ja.html
 You can add a simple readout system "Yomiagete" to your WordPress articles!
 
 == Description ==
-You can add a simple readout system "Yomiagete" to your WordPress articles!
+You can add a simple readout system "Yomiagete"(Your Messages Instantly Audiolize: Giving Every Text!) to your WordPress articles!
 
 == Frequently Asked Questions == 
 Q. On which devices can I read out loud?
@@ -20,7 +20,7 @@ A. It can be used with Google Chrome, Edge, and Firefox for PCs, and with the la
 
 == Screenshots ==
 1. Easy to insert readout button!
-
+2. Readout all texts and auto scroll!
 
 == Changelog ==
 0.0.1 New Release

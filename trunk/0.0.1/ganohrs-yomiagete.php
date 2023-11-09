@@ -31,12 +31,12 @@
 ?>
 <?php
 // 直接呼び出しは禁止
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
 	exit();
 }
 
 // 関数がなければ定義する
-if (!function_exists('ganohrs_yomiagete_func')) :
+if (! function_exists('ganohrs_yomiagete_func')) :
 	// オプション画面・オプション関連
 	require_once('class-ganohrs-yomiagete-options.php');
 
@@ -62,11 +62,11 @@ if (!function_exists('ganohrs_yomiagete_func')) :
 	function ganohrs_yomiagete_func($contents)
 	{
 		// 無駄な処理は行わない
-		if (!is_singular() || !is_main_query()) {
+		if (! is_singular() || ! is_main_query()) {
 			return $contents;
 		}
 		// オプションで指定された投稿タイプじゃない場合は処理を行わない
-		if (!ganohrs_yomiagete_is_target_type()) {
+		if (! ganohrs_yomiagete_is_target_type()) {
 			return $contents;
 		}
 
@@ -125,7 +125,7 @@ EOF;
 			$pos = 0;
 			while(true) {
 				$result = preg_match($regex, $contents, $matches, PREG_OFFSET_CAPTURE, $pos);
-				if (!$result) {
+				if (! $result) {
 					break;
 				}
 				if (strpos($matches[0][0], GANOHRS_YOMIAGETE_DATA_ID)
@@ -162,7 +162,7 @@ EOF;
 		while(true) {
 			$regex = '/' . GANOHRS_YOMIAGETE_DATA_ID . '="#[^"]+"/';
 			$result = preg_match($regex, $contents, $matches, PREG_OFFSET_CAPTURE, $pos);
-			if (!$result) {
+			if (! $result) {
 				break;
 			}
 			$pattern = '/' . preg_quote($matches[0][0], '/') . '/';
@@ -208,7 +208,7 @@ EOF;
 			// enqueue
 
 			// CSSをエンキューする
-			if (!wp_style_is($handle)) {
+			if (! wp_style_is($handle)) {
 				wp_enqueue_style(
 					$handle . "-css",
 					$css,
@@ -218,7 +218,7 @@ EOF;
 				);
 			}
 			// JSをエンキューする
-			if (!wp_script_is($handle)) {
+			if (! wp_script_is($handle)) {
 				wp_enqueue_script(
 					$handle . "-js",
 					$js,
@@ -265,12 +265,12 @@ EOF;
 		$target_types = 'post,page';
 		if ($option) {
 			$target_types = @$option['target_types'];
-			if (!$target_types || strlen($target_types) == 0) {
+			if (! $target_types || strlen($target_types) == 0) {
 				$target_types = 'post,page';
 			}
 		}
 		$now_post_type = get_post_type();
-		if (!is_string($now_post_type) || strlen($now_post_type) === 0) {
+		if (! is_string($now_post_type) || strlen($now_post_type) === 0) {
 			return false;
 		}
 		foreach (explode(',', $target_types) as $post_type) {
@@ -290,7 +290,7 @@ EOF;
 		$target_tags = 'h1,h2,h3,h4,h5,h6,p';
 		if ($option) {
 			$target_tags = @$option['target_tags'];
-			if (!$target_tags || strlen($target_tags) == 0) {
+			if (! $target_tags || strlen($target_tags) == 0) {
 				$target_tags = 'h1,h2,h3,h4,h5,h6,p';
 			}
 		}
@@ -309,27 +309,27 @@ EOF;
 		$volume = 1.0;
 		if ($option) {
 			$language = @$option['language'];
-			if (!$language || strlen($language) == 0) {
+			if (! $language || strlen($language) == 0) {
 				$language = strlen(get_locale()) === 0 ? "ja" : get_locale();
 			}
 
 			$speaker = @$option['speaker'];
-			if (!$speaker || strlen($speaker) == 0) {
+			if (! $speaker || strlen($speaker) == 0) {
 				$speaker = 'Microsoft Ayumi,Microsoft Haruka,Microsoft Sayaka,Microsoft Ichiro,Microsoft,Google,Kyoko,Fiona,Alex,Daniel,Fred';
 			}
 
 			$rate = @$option['rate'];
-			if (!$rate || !is_numeric($rate) || $rate < 0 || $rate > 4.0) {
+			if (! $rate || ! is_numeric($rate) || $rate < 0 || $rate > 4.0) {
 				$rate = 1.0;
 			}
 
 			$pitch = @$option['pitch'];
-			if (!$pitch || !is_numeric($pitch) || $pitch < 0 || $pitch > 2.0) {
+			if (! $pitch || ! is_numeric($pitch) || $pitch < 0 || $pitch > 2.0) {
 				$pitch = 1.0;
 			}
 
 			$volume = @$option['volume'];
-			if (!$volume || !is_numeric($volume) || $volume < 0 || $volume > 1.0) {
+			if (! $volume || ! is_numeric($volume) || $volume < 0 || $volume > 1.0) {
 				$volume = 1.0;
 			}
 		}
@@ -362,7 +362,7 @@ EOF;
 		$option = get_option('ganohrs_yomiagete_options');
 		if ($option) {
 			$enqueue_or_head = @$option['enqueue_or_head'];
-			if (!$enqueue_or_head || strlen($enqueue_or_head) == 0) {
+			if (! $enqueue_or_head || strlen($enqueue_or_head) == 0) {
 				$enqueue_or_head = 'enqueue';
 			}
 			return $enqueue_or_head;
@@ -372,7 +372,7 @@ EOF;
 
 	// リソース追加アクションを定義
 	if (ganohrs_yomiagete_resource_enqueue_or_head() === 'head') {
-		if (!has_action('wp_head', 'ganohrs_yomiagete_load_resource')) {
+		if (! has_action('wp_head', 'ganohrs_yomiagete_load_resource')) {
 			add_action(
 				'wp_head',
 				'ganohrs_yomiagete_load_resource'
@@ -388,7 +388,7 @@ EOF;
 endif;
 
 ////AMPページか否か判定する
-if (!function_exists('ganohrs_is_amp')) :
+if (! function_exists('ganohrs_is_amp')) :
 
 	function ganohrs_is_amp()
 	{
@@ -408,7 +408,7 @@ if (!function_exists('ganohrs_is_amp')) :
 	}
 	function ganohrs_get_uri_full()
 	{
-		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http')
+		return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
 			. '://'
 			. $_SERVER['SERVER_NAME']
 			. $_SERVER['REQUEST_URI'];
